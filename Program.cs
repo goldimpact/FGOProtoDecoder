@@ -23,12 +23,15 @@ namespace FGOProtoDecoder
 		static void Main(string[] args)
         {
 			var assembly_path = WhereFile("dll");
-			var out_path = Path.Combine(Path.GetDirectoryName(assembly_path), "DumpResult");
-			if (!Directory.Exists(out_path)) Directory.CreateDirectory(out_path);
+			var out_path_onefile = Path.Combine(Path.GetDirectoryName(assembly_path), "DumpResult");
+			var out_path_dir = Path.Combine(Path.GetDirectoryName(assembly_path), "DumpResult\\proto");
+			if (!Directory.Exists(out_path_onefile)) Directory.CreateDirectory(out_path_onefile);
+			if (!Directory.Exists(out_path_dir)) Directory.CreateDirectory(out_path_dir);
 			var decoder = new Decoder(assembly_path);
 			decoder.Parse();
 			var descriptionWriter = new ProtobufWriter(decoder.GetItems());
-			descriptionWriter.DumpToDirectory(out_path);
+			descriptionWriter.DumpToFile(out_path_onefile);
+			descriptionWriter.DumpToDirectory(out_path_dir);
 			Console.WriteLine("Done");
 			Console.ReadKey();
 		}

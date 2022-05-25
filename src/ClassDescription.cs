@@ -66,7 +66,15 @@ namespace FGOProtoDecoder
 		public override string[] ToPBLines()
 		{
 			var lines = new List<string>();
-			lines.Add("message " + Name.CutAfterPlusAndDot() + " {");
+			var name = Name.CutAfterPlusAndDot();
+			/*
+			if (name.Contains('_'))
+            {
+				var temp = name.ReformatString();
+				name = char.ToUpper(temp[0])+temp.Substring(1);
+            }
+			*/
+			lines.Add("message " + name + " {");
 			if (Classes.Count > 0)
 			{
 				foreach (var item in Classes) lines.AddRange(item.Value.ToPBLines().PadStrings());

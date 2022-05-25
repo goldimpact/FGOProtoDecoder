@@ -20,7 +20,7 @@ namespace FGOProtoDecoder
             Console.WriteLine("Begin parse");
             foreach (var type in GetProtobufTypes())
             {
-                ObjectDescription od = parseClass(type);
+                ObjectDescription od = (ObjectDescription)parseClass(type);
                 items.Add(type.FullName, od);
                 Console.WriteLine($"Processed {type.FullName}");
             }
